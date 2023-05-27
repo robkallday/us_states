@@ -17,13 +17,19 @@ while len(guessed_states) < 50:
     guess_state = data[data.state == answer_state]
     guess_x = data[data.x == answer_state]
     guess_y = data[data.y == answer_state]
-    if answer_state == "Exit":
-        #Create CSV file with missing states
 
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+    # Creates CSV file with missing states
+    if answer_state == "Exit":
+
+        #new List Comprehension method
+        missing_states = [state for state in all_states if state not in guessed_states]
+
+        #original method
+        # missing_states = []
+        # for state in all_states:
+        #     if state not in guessed_states:
+        #         missing_states.append(state)
+
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
         break
